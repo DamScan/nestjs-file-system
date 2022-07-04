@@ -61,4 +61,16 @@ export class NfsService {
       throw new ServiceUnavailableException(e);
     }
   }
+
+  async makeDirectory(path: string): Promise<void> {
+    try {
+      console.log(path)
+      if (!fs.existsSync(path)) {
+        fs.mkdirSync(path, 0o766);
+      }
+    } catch (e) {
+      this.logger.error(JSON.stringify(e));
+      throw new ServiceUnavailableException(e);
+    }
+  }
 }
