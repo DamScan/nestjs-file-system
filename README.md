@@ -21,7 +21,11 @@
 
 ### About nestjs-file-system
 
+*** Pre-release, in development ***
 
+This library uses a peerDependency for the extraction of .zip file, if you want to use this feature you will have to install this dependency.
+
+I'm coding this library for my needs, but I'm open to feature submissions
 
 ### Inject module in your nestJs project
 
@@ -57,15 +61,14 @@ export class AppService {
     private logger = new Logger('AppService', { timestamp: true });
     constructor(private readonly _nfsService: NfsModule){}
 
-  //   public async listingFile(): Promise<FileInfo[]> {
-  //   try {
-  //     const fileList = await this._ftpService.list();
-  //     return fileList;
-  //   } catch (e) {
-  //     this.logger.error(JSON.stringify(e));
-  //     throw new ServiceUnavailableException(e);
-  //   }
-  // }
+  public listFile(path: string): Dirent[] {
+    try {
+      return this._nfsService.listFile(path)
+    } catch (e) {
+      this.logger.error(JSON.stringify(e));
+      throw new ServiceUnavailableException(e);
+    }
+  }
 }
 
 ```

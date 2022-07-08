@@ -14,11 +14,11 @@ export class NfsService {
     this.logger.log('Starting module', 'NfsService initialized');
   }
   /**
-   *
-   * @param entry
-   * @param targetPath
-   * @param overWrite
-   * @param keepOriginalPermission
+   *  Method for deflate zip file ( warning: peerDependencies adm-zip must be )
+   * @param entry file to decompress
+   * @param targetPath folder in which the files will be decompressed
+   * @param overWrite overwrite existing files
+   * @param keepOriginalPermission // overide natural permission
    */
   async deflateZip(
     entry: string,
@@ -40,8 +40,7 @@ export class NfsService {
     }
   }
   /**
-   *
-   * @param entry
+   * @param entry file or folder to delete
    */
   async deleteFile(entry: string): Promise<void> {
     try {
@@ -52,19 +51,25 @@ export class NfsService {
       throw new ServiceUnavailableException(e);
     }
   }
-
-  async listFile(folder: string): Promise<any> {
+  /**
+   * @param folder folder where the files should be listed
+   * @returns <array of file included in this folder>
+   */
+  listFile(folder: string): fs.Dirent[] {
     try {
-      return fs.readdirSync(folder);
+      return fs.readdirSync(path.resolve(folder), {
+        withFileTypes: true,
+      });
     } catch (e) {
       this.logger.error(JSON.stringify(e));
       throw new ServiceUnavailableException(e);
     }
   }
-
+  /**
+   * @param path path or folder to create
+   */
   async makeDirectory(path: string): Promise<void> {
     try {
-      console.log(path)
       if (!fs.existsSync(path)) {
         fs.mkdirSync(path, 0o766);
       }
