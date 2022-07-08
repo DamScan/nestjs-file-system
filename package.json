@@ -1,6 +1,6 @@
 {
   "name": "nestjs-file-system",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "File manipulator for nestjs",
   "author": {
     "name": "DamScan",
