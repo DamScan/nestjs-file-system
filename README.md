@@ -23,8 +23,6 @@
 
 *** Pre-release, in development ***
 
-This library uses a peerDependency for the extraction of .zip file, if you want to use this feature you will have to install this dependency.
-
 I'm coding this library for my needs, but I'm open to feature submissions
 
 ### Inject module in your nestJs project
