@@ -4,7 +4,7 @@ import {
   ServiceUnavailableException,
 } from '@nestjs/common';
 import * as AdmZip from 'adm-zip';
-import * as path from 'node:path';
+import * as _path from 'node:path';
 import * as fs from 'node:fs';
 
 @Injectable()
@@ -28,7 +28,7 @@ export class NfsService {
   ): Promise<void> {
     try {
       this.logger.debug(`Starting deflate ${entry}`);
-      const file2UnZip = new AdmZip(path.resolve(entry));
+      const file2UnZip = new AdmZip(_path.resolve(entry));
       file2UnZip.extractAllToAsync(
         targetPath,
         overWrite,
@@ -57,7 +57,7 @@ export class NfsService {
    */
   listFile(folder: string): fs.Dirent[] {
     try {
-      return fs.readdirSync(path.resolve(folder), {
+      return fs.readdirSync(_path.resolve(folder), {
         withFileTypes: true,
       });
     } catch (e) {
