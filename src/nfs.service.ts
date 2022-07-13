@@ -55,7 +55,7 @@ export class NfsService {
    * @param folder folder where the files should be listed
    * @returns <array of file included in this folder>
    */
-  listFile(folder: string): fs.Dirent[] {
+  async listFile(folder: string): Promise<fs.Dirent[]> {
     try {
       return fs.readdirSync(_path.resolve(folder), {
         withFileTypes: true,
